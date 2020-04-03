@@ -1,2 +1,1 @@
-# pandora
-Official Hyperion Discord bot.
+#Pandora
