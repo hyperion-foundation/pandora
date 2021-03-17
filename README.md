@@ -9,7 +9,7 @@ Pandora is a simple administrative bot to organize your server.
 
 **Q** : What is the purpose about creating this repo?
 
-**A** : We create this repo if our clients having some trouble while using Shaii and Shaii Pro. You can send any issues about Shaii or Shaii Pro on this repo, so, go to this link https://github.com/hyperion-foundation/shaii/issues .
+**A** : We create this repo if our clients having some trouble while using Shaii and Shaii Pro. You can send any issues about Shaii or Shaii Pro on this repo, so, go to this link https://github.com/hyperion-foundation/pandora/issues .
 ## Features (Coming Soon)
 1. Moderation system (Suspend/Mute, Kick & Ban user).
 2. Ranking system.
