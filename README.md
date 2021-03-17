@@ -12,5 +12,7 @@ Pandora is a simple administrative bot to organize your server.
 3. Scanning bad text messages (Bad words, bad-links, excessive emojis, etc).
 4. Logging system.
 ## Project Lead / Author
-Project Lead / Author : SleepNov4 / Ren and Maintained by Hyperion Dev Team.
+Project Lead / Author : SleepNov4 / Ren 
+
+Maintained by Hyperion Dev Team.
 > This project is under MIT license
