@@ -10,6 +10,6 @@ For now, Pandora is under heavy development and there is no source code availabl
 3. Scanning bad text messages (Bad words, bad-links, excessive emojis, etc).
 4. Logging system.
 ### Project Lead / Author
-Project Lead / Author : SleepNov4 / Ren
+Project Lead / Author : SleepNov4 / Ren 
 Maintained by Hyperion Dev Team.
 > This project is under MIT license
