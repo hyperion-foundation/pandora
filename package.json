@@ -1,0 +1,18 @@
+{
+  "name": "pandora",
+  "version": "0.1.0",
+  "description": "An administrative Discord bot",
+  "main": "index.js",
+  "scripts": {
+    "test": "node index.js"
+  },
+  "author": "SleepNov4, Hyperion Dev Team, Hyperion Foundation",
+  "license": "MIT",
+  "dependencies": {
+    "@discordjs/rest": "^1.5.0",
+    "bufferutil": "^4.0.7",
+    "discord.js": "^14.7.1",
+    "dotenv": "^16.0.3",
+    "eslint": "^8.35.0"
+  }
+}
