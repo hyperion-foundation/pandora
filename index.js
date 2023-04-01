@@ -2,7 +2,7 @@ require('dotenv').config();
 const { Client, Collection, EmbedBuilder, Events, GatewayIntentBits } = require('discord.js');
 const fs = require('node:fs');
 const path = require('node:path');
-const config = require('./config.json');
+const config = require('./lib/config.json');
 const BadWords = require('./lib/badwords.json').words;
 const client = new Client({
   intents: [
