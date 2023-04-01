@@ -6,6 +6,9 @@
   "scripts": {
     "test": "node index.js"
   },
+  "engines": {
+    "node": ">=16.9.0"
+  },
   "author": "SleepNov4, Hyperion Dev Team, Hyperion Foundation",
   "license": "MIT",
   "dependencies": {
