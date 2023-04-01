@@ -1,20 +1,20 @@
 require('dotenv').config();
-const Discord = require('discord.js');
+const { Client, Collection, EmbedBuilder, Events, GatewayIntentBits } = require('discord.js');
 const fs = require('node:fs');
 const path = require('node:path');
 const config = require('./config.json');
-const client = new Discord.Client({
+const BadWords = require('./lib/badwords.json').words;
+const client = new Client({
   intents: [
-    Discord.GatewayIntentBits.Guilds,
-    Discord.GatewayIntentBits.GuildMembers,
-    Discord.GatewayIntentBits.GuildMessages,
-    Discord.GatewayIntentBits.MessageContent,
+    GatewayIntentBits.Guilds,
+    GatewayIntentBits.GuildMembers,
+    GatewayIntentBits.GuildMessages,
+    GatewayIntentBits.MessageContent,
   ],
 });
 
-client.commands = new Discord.Collection();
-client.aliases = new Discord.Collection();
-client.config = require('./package.json');
+client.commands = new Collection();
+client.aliases = new Collection();
 client.emotes = config.emoji;
 
 const commandsPath = path.join(__dirname, 'commands');
@@ -32,12 +32,12 @@ for (const file of commandFiles) {
 }
 
 client.on('ready', async () => {
-  console.log(`${client.user.username} is ready to go!`);
-  client.user.setPresence({ activities: [{ name: '/help' }], status: 'idle' });
+  console.log(`"${client.user.username}" is ready to go!`);
+  client.user.setPresence({ activities: [{ name: '/help' }], status: 'dnd' });
 });
 client.on('debug', console.log);
 
-client.on(Discord.Events.InteractionCreate, async interaction => {
+client.on(Events.InteractionCreate, async interaction => {
   if (!interaction.isChatInputCommand()) return;
 
   const command = interaction.client.commands.get(interaction.commandName);
@@ -61,18 +61,33 @@ client.on(Discord.Events.InteractionCreate, async interaction => {
   }
 });
 
+client.on('messageCreate', async message => {
+  if (BadWords.some(word => message.content.toLowerCase().includes(word))) {
+    message.delete();
+    message.channel.send(`Dear **${message.author}**, please do not send any messages containing bad words!`);
+    console.log(`[LOG (Info)]: "${message.author.tag}" (User ID: ${message.author.id}) just send a message containing bad words on "#${message.channel.name}" (Channel ID: ${message.channel.id}), and the message successfully deleted.`);
+    console.log(`[LOG (Info)]: "${message.client.user.tag}" (Client ID: ${message.client.user.id}) just deleted "${message.author.tag}" (User ID: ${message.author.id}) message for bad words reasons.`);
+  }
+});
+
 client.on('guildMemberAdd', (member) => {
   const channel = member.guild.channels.cache.get('716421095737262110');
   if (!channel) return;
   channel.send({
     embeds: [
-      new Discord.EmbedBuilder()
+      new EmbedBuilder()
         .setColor('DarkPurple')
         .setTitle(`${client.emotes.in} | In`)
-        .setDescription(`Welcome, ${member.user.username}! We're hoping you enjoy your stay.`)
+        .setDescription(`Welcome, **${member.user.tag}**! ${client.emotes.wave}\nWe're hoping you enjoy your stay.`)
     ]
   });
   console.log(`${member.user.tag} (${member.user.id}) just joined to ${member.guild.name} (${member.guild.id}).`);
+});
+
+client.on('guildMemberAdd', member => {
+  const channel = member.guild.channels.cache.get('1090548139280302096');
+  channel.setName(`Total Members: ${member.guild.memberCount}`);
+  console.log(`[LOG (Info)]: "${member.user.tag}" (User ID: ${member.user.id}) just joined to "${member.guild.name}" (Guild ID: ${member.guild.id}), and the server now has "${member.guild.memberCount}" members.`);
 });
 
 client.on('guildMemberRemove', (member) => {
@@ -80,13 +95,19 @@ client.on('guildMemberRemove', (member) => {
   if (!channel) return;
   channel.send({
     embeds: [
-      new Discord.EmbedBuilder()
+      new EmbedBuilder()
         .setColor('DarkPurple')
         .setTitle(`${client.emotes.out} | Out`)
-        .setDescription(`We're sorry to see you go! Goodbye, ${member.user.username}!\nReason: \`Leave with their own decision (Non-administrative)\``)
+        .setDescription(`We're sorry to see you go! Goodbye, **${member.user.tag}**! ${client.emotes.wave}`)
     ]
   });
-  console.log(`${member.user.tag} (${member.user.id}) just left from ${member.guild.name} (${member.guild.id}).`);
+  console.log(`[LOG (Info)]: "${member.user.tag}" (User ID: ${member.user.id}) just left from "${member.guild.name}" (Guild ID: ${member.guild.id}).`);
+});
+
+client.on('guildMemberRemove', member => {
+  const channel = member.guild.channels.cache.get('1090548139280302096');
+  channel.setName(`Total Members: ${member.guild.memberCount}`);
+  console.log(`[LOG (Info)]: "${member.user.tag}" (User ID: ${member.user.id} just left from "${member.guild.name}" (Guild ID: ${member.guild.id}), and the server now has "${member.guild.memberCount}" members.`);
 });
 
 client.login(process.env.TOKEN);
