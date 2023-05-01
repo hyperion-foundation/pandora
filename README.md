@@ -12,10 +12,10 @@ Pandora is a simple administrative bot to organize your server.
 **A** : If you having some troubles while using Pandora, you can send any issues about Pandora on this repo, so, go to this link https://github.com/hyperion-foundation/pandora/issues or you can visit our [Discord Lab](https://discord.gg/B6dSRjs) server.
 
 ## Features (Under Development)
-1. Moderation system (Suspend/Mute, Kick & Ban user).
-2. Ranking system.
-3. Scanning bad text messages (Bad words, bad-links, excessive emojis, etc).
-4. Logging system.
+- [ ] Moderation system (Suspend/Mute, Kick & Ban user).
+- [ ] Ranking system.
+- [x] Scanning bad text messages (Bad words, bad-links, excessive emojis, etc). (In progress)
+- [ ] Logging system.
 
 ## Project Lead / Author
 SleepNov4 (Alexander Andhika S.)
